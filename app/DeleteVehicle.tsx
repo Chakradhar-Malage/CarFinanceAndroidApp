@@ -15,7 +15,7 @@ const DeleteVehicle = () => {
         }
 
         try {
-            const response = await fetch(`http://192.168.1.203:3000/deleteVehicle/${id}`, {
+            const response = await fetch(`http://15.207.48.53:3000/deleteVehicle/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

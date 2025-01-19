@@ -56,7 +56,7 @@ const ViewNonGSTInvoices = () => {
 
     const fetchInvoices = async () => {
         try {
-            const response = await axios.get('http://192.168.1.203:3000/allnongstinvoices');
+            const response = await axios.get('http://15.207.48.53:3000/allnongstinvoices');
             setInvoices(response.data);
             setFilteredInvoices(response.data);
         } catch (error) {
@@ -72,7 +72,7 @@ const ViewNonGSTInvoices = () => {
 
         try {
             const response = await axios.get(
-                `http://192.168.1.203:3000/nongstinvoices/customer/${searchName}`
+                `http://15.207.48.53:3000/nongstinvoices/customer/${searchName}`
             );
             setFilteredInvoices(response.data);
         } catch (error) {
@@ -84,7 +84,7 @@ const ViewNonGSTInvoices = () => {
     const downloadInvoice = async (invoicePdf) => {
         try {
             const response = await axios.get(
-                `http://192.168.1.203:3000/invoices/${invoicePdf}/download`,
+                `http://15.207.48.53:3000/invoices/${invoicePdf}/download`,
                 { responseType: 'blob' }
             );
             console.log('Invoice downloaded successfully:', invoicePdf);
@@ -96,7 +96,7 @@ const ViewNonGSTInvoices = () => {
     const openInBrowser = (customerName, createdAt) => {
         const formattedDate = formatDateForUrl(createdAt);  // Format the date to match the required format
         const encodedCreatedAt = encodeURIComponent(formattedDate);  // Encode the formatted date
-        const url = `http://192.168.1.203:3000/nongstinvoices/${customerName}/${encodedCreatedAt}/download`;
+        const url = `http://15.207.48.53:3000/nongstinvoices/${customerName}/${encodedCreatedAt}/download`;
     
         console.log("Download URL:", url);
         // Open the URL in the browser

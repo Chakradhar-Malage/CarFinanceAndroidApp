@@ -45,7 +45,7 @@ const Home = () => {
         };
 
         try{
-            const response = await fetch('http://192.168.1.203:3000/addVehicle', {
+            const response = await fetch('http://15.207.48.53:3000/addVehicle', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

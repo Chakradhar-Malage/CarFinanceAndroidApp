@@ -14,7 +14,7 @@ const CustomerLedger = () => {
     useEffect(() => {
         const fetchLedgerData = async () => {
             try {
-                const response = await fetch('http://192.168.1.203:3000/getLedgerData');
+                const response = await fetch('http://15.207.48.53:3000/getLedgerData');
                 const result = await response.json();
 
                 if (response.ok) {
@@ -58,7 +58,7 @@ const CustomerLedger = () => {
             transactionType: transactionType,
         };
 
-        fetch('http://192.168.1.203:3000/saveCustomerLedger', {
+        fetch('http://15.207.48.53:3000/saveCustomerLedger', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

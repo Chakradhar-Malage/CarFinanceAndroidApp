@@ -45,7 +45,7 @@ const ViewInvoices = () => {
 
     const fetchInvoices = async () => {
         try {
-            const response = await axios.get('http://192.168.1.203:3000/allinvoices');
+            const response = await axios.get('http://15.207.48.53:3000/allinvoices');
             setInvoices(response.data);
             setFilteredInvoices(response.data);
         } catch (error) {
@@ -61,7 +61,7 @@ const ViewInvoices = () => {
 
         try {
             const response = await axios.get(
-                `http://192.168.1.203:3000/invoices/customer/${searchName}`
+                `http://15.207.48.53:3000/invoices/customer/${searchName}`
             );
             setFilteredInvoices(response.data);
         } catch (error) {
@@ -86,7 +86,7 @@ const ViewInvoices = () => {
     const openInBrowser = (customerName, createdAt) => {
         const formattedDate = formatDateForUrl(createdAt);  // Format the date to match the required format
         const encodedCreatedAt = encodeURIComponent(formattedDate);  // Encode the formatted date
-        const url = `http://192.168.1.203:3000/invoices/${customerName}/${encodedCreatedAt}/download`;
+        const url = `http://15.207.48.53:3000/invoices/${customerName}/${encodedCreatedAt}/download`;
     
         console.log("Download URL:", url);
         // Open the URL in the browser
@@ -97,7 +97,7 @@ const ViewInvoices = () => {
     // const downloadInvoice = async (customerName, createdAt) => {
     //     try {
     //         const encodedCreatedAt = encodeURIComponent(createdAt);
-    //         const url = `http://192.168.1.203:3000/invoices/${customerName}/${encodedCreatedAt}/download`;
+    //         const url = `http://15.207.48.53:3000/invoices/${customerName}/${encodedCreatedAt}/download`;
 
     //         const fileUri = FileSystem.documentDirectory + 'invoice.pdf';
             

@@ -32,7 +32,7 @@ const ViewCarDetails = () => {
         
         const fetchVehicleDetails = async () => {
             try {
-                const response = await fetch(`http://192.168.1.203:3000/searchById?id=${encodeURIComponent(vehicleId)}`);
+                const response = await fetch(`http://15.207.48.53:3000/searchById?id=${encodeURIComponent(vehicleId)}`);
                 const data = await response.json();
                 
                 if (data.length === 0) {
@@ -84,7 +84,7 @@ const ViewCarDetails = () => {
                 updatedCarDetails.date = date; // Update the date if changed
             }
     
-            const response = await axios.put(`http://192.168.1.203:3000/updateCarDetails/${vehicleId}`, updatedCarDetails);
+            const response = await axios.put(`http://15.207.48.53:3000/updateCarDetails/${vehicleId}`, updatedCarDetails);
     
             if (response.status === 200) {
                 Alert.alert('Success', 'Car details updated successfully.');
@@ -116,7 +116,7 @@ const ViewCarDetails = () => {
                 };
     
             // API call to save data to the database
-            const response = await axios.post('http://192.168.1.203:3000/saveClearedDetails', dataToSave);
+            const response = await axios.post('http://15.207.48.53:3000/saveClearedDetails', dataToSave);
     
             if (response.status === 200) {
                 Alert.alert('Success', 'Details saved successfully.');
@@ -205,7 +205,7 @@ const ViewCarDetails = () => {
         if (pendingAmount > 0) {
             try {
                 // Make the second API call with pending amount
-                const response = await axios.post('http://192.168.1.203:3000/processPendingAmount', {
+                const response = await axios.post('http://15.207.48.53:3000/processPendingAmount', {
                     vehicleId: vehicleId,
                     pending_amount: pendingAmount,
                     customer_name: issued_to
