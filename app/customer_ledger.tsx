@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert, TextInput, Button, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -182,15 +181,14 @@ const CustomerLedger = () => {
                     borderBottomWidth: StyleSheet.hairlineWidth,
                 }}
             />
+
             <SafeAreaView style={styles.safeArea}>
-                <ScrollView> {/* Wrap FlatList with ScrollView */}
-                    <FlatList
-                        data={ledgerData}
-                        keyExtractor={(item) => item.transaction_date}
-                        renderItem={renderLedgerItem}
-                        contentContainerStyle={styles.listContainer}
-                    />
-                </ScrollView> {/* Wrap FlatList with ScrollView */}
+                <FlatList
+                    data={ledgerData}
+                    keyExtractor={(item) => item.transaction_date.toString()}
+                    renderItem={renderLedgerItem}
+                    contentContainerStyle={styles.listContainer}
+                />
             </SafeAreaView>
         </SafeAreaProvider>
     );
