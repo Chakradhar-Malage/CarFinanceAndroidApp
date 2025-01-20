@@ -4,12 +4,8 @@ import axios from 'axios';
 import { globalState } from '@/src/globalState';
 import { useNavigation } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import RNFS from 'react-native-fs';
 import { Linking } from 'react-native';
-// import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import * as FileSystem from 'expo-file-system';
-import * as Permissions from 'expo-permissions';
-// import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+
 
 
 const ViewInvoices = () => {
