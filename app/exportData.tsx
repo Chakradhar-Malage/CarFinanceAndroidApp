@@ -21,26 +21,6 @@ const ExportData = () => {
 
     const navigation = useNavigation();
 
-    // const fetchData = async () => {
-    //     if (!customername.trim()) {
-    //         Alert.alert('Please Enter Customer Name');
-    //         return;
-    //     }
-
-    //     setLoading(true);
-    //     setSearchInitiated(true);
-
-    //     try {
-    //         const response = await fetch(`http://192.168.1.203:3000/search?customername=${encodeURIComponent(customername.trim())}`);
-    //         const result = await response.json();
-    //         setData(result);
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error.message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
     const exportLastMonthData = async () => {
         if (!month) {
             Alert.alert('Please select a month');

@@ -1,65 +1,80 @@
 import { useNavigation } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView, Image, TextInput, StyleSheet, Button } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 const SignIn = () => {
   const navigation = useNavigation();
-    const [username, setUsername] = useState('');
-    const [Password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [Password, setPassword] = useState('');
 
-    const handleSignIn = () => {
-        if (username === "OmSai" && Password === '9762230555') {
-          // Ensure the path here is correct and matches the file in the `app/` folder
-            navigation.navigate("Companies");
-          } else {
-            alert('Invalid username or password');
-          }
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkLoginStatus = async () => {
+      const storedLoginStatus = await SecureStore.getItemAsync('isLoggedIn');
+      if (storedLoginStatus === 'true') {
+        // If logged in, navigate to Companies page
+        navigation.navigate("Companies");
+      }
     };
-    
-    return (
-      <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                {/* Logo */}
-                <View style={styles.logoContainer}>
-                    <Image
-                        source={require('../assets/images/logo.jpg')}
-                        style={styles.logo}
-                        resizeMode="contain"
-                        />
-                </View>
+    checkLoginStatus();
+  }, []);
 
-                <TextInput
-                    style={styles.input}
-                    value={username}
-                    placeholder="UserName"
-                    placeholderTextColor="gray"
-                    onChangeText={(text) => setUsername(text)}  // Updated function name
-                    />
-
-                <TextInput
-                    style={styles.input}
-                    value={Password}
-                    placeholder="Password"
-                    placeholderTextColor="gray"
-                    secureTextEntry
-                    onChangeText={(text) => setPassword(text)}  // Updated function name
-                />
-                
-                <Button
-                    onPress={handleSignIn}  // Corrected here, passing function reference
-                    title="Sign In"
-                    color="rgb(190, 78, 190)"
-                    accessibilityLabel="Learn more about this purple button"
-                    />
-
-                <Text style={styles.bottomText}>Yes, We CAN!</Text>
-            </ScrollView>
-        </SafeAreaView>
-    );
+  const handleSignIn = async () => {
+    if (username === "OmSai" && Password === '9762230555') {
+      // Save login status securely
+      await SecureStore.setItemAsync('isLoggedIn', 'true');
+      await SecureStore.setItemAsync('username', username); // Optional: Store the username or any other info
+      navigation.navigate("Companies");
+    } else {
+      alert('Invalid username or password');
+    }
   };
 
-  
-  export default SignIn;
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Logo */}
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../assets/images/logo.jpg')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
+
+        <TextInput
+          style={styles.input}
+          value={username}
+          placeholder="UserName"
+          placeholderTextColor="gray"
+          onChangeText={(text) => setUsername(text)} 
+        />
+
+        <TextInput
+          style={styles.input}
+          value={Password}
+          placeholder="Password"
+          placeholderTextColor="gray"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)} 
+        />
+
+        <Button
+          onPress={handleSignIn}
+          title="Sign In"
+          color="rgb(190, 78, 190)"
+          accessibilityLabel="Learn more about this purple button"
+        />
+
+        <Text style={styles.bottomText}>Yes, We CAN!</Text>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default SignIn;
+
   
   const styles = StyleSheet.create({
     container: {

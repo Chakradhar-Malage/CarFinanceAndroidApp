@@ -1,11 +1,3 @@
-// // globalState.js
-// export const globalState = {
-//     TempforViewing: null,
-//     totalPendingAmount: 0,
-//     UserName:'Om',
-//     totalCount:0
-// };
-
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
