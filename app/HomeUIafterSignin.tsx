@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         borderColor: '#ddd',
     },
     buttonText: {
-        fontSize: 14,
+        fontSize: 13,
         color: '#333',
         height:15,
         overflow: 'hidden',

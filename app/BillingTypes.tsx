@@ -36,6 +36,16 @@ const BillingTypeCard = () => {
                     
                 </View>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('quotation')}>
+                <View style={styles.card}>
+                    <View style={styles.header}>
+                        <Text style={styles.subtitle}>
+                            Om Sai Quotations
+                        </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };

@@ -1,5 +1,5 @@
 {
-  "name": "carfinance",
+  "name": "OmSai",
   "version": "1.0.0",
   "private": true,
   "description": "latest",
@@ -68,7 +68,8 @@
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "^0.19.13",
     "react-native-webview": "13.12.5",
-    "expo-secure-store": "~14.0.1"
+    "expo-secure-store": "~14.0.1",
+    "expo-build-properties": "~0.13.2"
   },
   "devDependencies": {
     "@react-native-community/cli": "latest",

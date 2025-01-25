@@ -23,20 +23,6 @@ const CompanyCard = () => {
                 </View>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity onPress={() => navigation.navigate('Generator/HomeUIafterSignin')}>
-                <View style={styles.card}>
-                    <View style={styles.header}>
-                        <Text style={styles.title}>
-                            Welcome To !!
-                        </Text>
-                        <Text style={styles.subtitle}>
-                            Om Sai Generators
-                        </Text>
-                    </View>
-                    
-                </View>
-            </TouchableOpacity> */}
-
 			<TouchableOpacity onPress={() => navigation.navigate('BillingTypes')}>
 				<View style={styles.card}>
 					<View style={styles.header}>

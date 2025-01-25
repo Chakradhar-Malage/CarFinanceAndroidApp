@@ -81,7 +81,7 @@ const ExportData = () => {
                 <TouchableOpacity 
                     onPress={() => navigation.navigate('customer_ledger')} 
                     style={styles.buttonledger}>
-                    <Text style={styles.buttonledgerText}>Ledger</Text>
+                    <Text style={styles.buttonledgerText}>Pending Ledger</Text>
                 </TouchableOpacity>
                 <View style={styles.container}>
 
