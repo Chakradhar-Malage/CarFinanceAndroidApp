@@ -84,33 +84,11 @@ const ViewInvoices = () => {
         const encodedCreatedAt = encodeURIComponent(formattedDate);  // Encode the formatted date
         const url = `http://15.207.48.53:3000/invoices/${customerName}/${encodedCreatedAt}/download`;
     
-        console.log("Download URL:", url);
+        // console.log("Download URL:", url);
         // Open the URL in the browser
         Linking.openURL(url).catch((err) => console.error('Failed to open URL', err));
     };
     
-
-    // const downloadInvoice = async (customerName, createdAt) => {
-    //     try {
-    //         const encodedCreatedAt = encodeURIComponent(createdAt);
-    //         const url = `http://15.207.48.53:3000/invoices/${customerName}/${encodedCreatedAt}/download`;
-
-    //         const fileUri = FileSystem.documentDirectory + 'invoice.pdf';
-            
-    //         // Download the file
-    //         const downloadResult = await FileSystem.downloadAsync(url, fileUri);
-
-    //         // Notify user of successful download
-    //         Alert.alert('Download completed', `Invoice saved to: ${downloadResult.uri}`);
-    //     } catch (error) {
-    //         console.error('Error downloading invoice:', error);
-    //         Alert.alert('Error', 'Failed to download the invoice.');
-    //     }
-    // };
-
-    // const handleDownload = (item) => {
-    //     downloadInvoice(item.customer_name, item.created_at);
-    // };
 
     const renderInvoice = ({ item }) => (
         <View style={styles.invoiceItem}>
@@ -142,9 +120,15 @@ const ViewInvoices = () => {
             </View>
             </SafeAreaView>
             {/* View Invoices Button */}
-            <TouchableOpacity onPress={() => navigation.navigate('GenerateInvoice')} style={styles.viewInvoicesButton}>
-                <Text style={styles.viewInvoicesText}>New Invoice</Text>
-            </TouchableOpacity>
+            {/* Buttons container with flexDirection: 'row' */}
+            <View style={styles.buttonsContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('GenerateInvoice')} style={styles.viewInvoicesButton}>
+                    <Text style={styles.viewInvoicesText}>New Invoice</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('GstBilling_ledger')} style={styles.viewInvoicesButton}>
+                    <Text style={styles.viewInvoicesText}>Billing Ledger</Text>
+                </TouchableOpacity>
+            </View>
             {/* Search Section */}
             <TextInput
                 style={styles.searchInput}
@@ -226,6 +210,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         borderRadius: 5,
     },
+
+    buttonsContainer: {
+        flexDirection: 'row',  // This makes the buttons appear side by side
+        justifyContent: 'space-between', // Space between buttons
+        marginBottom: 20,  // Adjust the margin if needed
+    },
+
     searchButton: {
         backgroundColor: '#841584',
         paddingVertical: 10, // Adjust padding if needed
@@ -237,8 +228,8 @@ const styles = StyleSheet.create({
 
     viewInvoicesButton: {
         padding: 10,
-        marginBottom: 20,
-        width:'50%',
+        // marginBottom: 20,
+        width:'48%',
         backgroundColor: '#841584',
         borderRadius: 18,
     },

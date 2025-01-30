@@ -100,6 +100,7 @@ const GenerateNonGSTInvoice = () => {
                     onChangeText={(text) => handleCustomerChange(field, text)}
                     style={styles.input}
                     mode="outlined"
+                    keyboardType={field==='mobile' ? 'numeric' : 'none' }
                   />
                 ))}
               </Card.Content>

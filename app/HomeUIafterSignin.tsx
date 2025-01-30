@@ -48,6 +48,7 @@ const HomeUIafterSignin = () => {
                 <View
                     style={{
                         margin: 25,
+                        marginBottom: 15,
                         borderWidth: 1,
                         borderBottomColor: 'black',
                         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -73,6 +74,7 @@ const HomeUIafterSignin = () => {
                 <View
                     style={{
                         margin: 25,
+                        marginTop: 10,
                         borderWidth: 1,
                         borderBottomColor: 'black',
                         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
-        paddingVertical: 15,
+        paddingVertical: 12,
         marginHorizontal: 20,
         marginVertical: 10,
         backgroundColor: '#f5f5f5', // Optional, for better visual appearance

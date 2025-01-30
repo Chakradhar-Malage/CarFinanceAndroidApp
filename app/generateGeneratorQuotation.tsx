@@ -22,7 +22,7 @@ const generateQuotation = () => {
 
   useEffect(() => {
     axios
-      .get('http://15.207.48.53:3000/quotation-customers')
+      .get('http://15.207.48.53:3000/generator-quotation-customers')
       .then(response => {
         setCustomersList(response.data);
       })
@@ -32,19 +32,6 @@ const generateQuotation = () => {
   const handleCustomerChange = (key, value) => {
     setCustomerDetails({ ...customerDetails, [key]: value });
   };
-
-  // const handleExistingCustomerSearch = () => {
-  //   const matchedCustomer = customersList.find(customer =>
-  //     customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     customer.mobile.includes(searchQuery)
-  //   );
-  //   if (matchedCustomer) {
-  //     setSelectedCustomer(matchedCustomer);
-  //     setCustomerDetails(matchedCustomer);
-  //   } else {
-  //     Alert.alert('Not Found', 'No customer matches your search.');
-  //   }
-  // };
 
   const handleExistingCustomerSearch = () => {
     const matchedCustomer = customersList.find(customer =>
@@ -60,7 +47,7 @@ const generateQuotation = () => {
         name: matchedCustomer.name,
         mobile: matchedCustomer.mobile,
         address: matchedCustomer.address,
-        gstin: matchedCustomer.gstin,  // Make sure gstin is included here
+        gstin: matchedCustomer.gsti || 'N/A',  // Make sure gstin is included here
         termsConditions: matchedCustomer.terms_conditions || '', // Optional field
       });
     } else {
@@ -81,11 +68,11 @@ const generateQuotation = () => {
 
   const generateInvoice = async () => {
     try {
-      const response = await axios.post('http://15.207.48.53:3000/generate-quotation', {
+      const response = await axios.post('http://15.207.48.53:3000/generate-generator-quotation', {
         customerName: customerDetails.name,
         customerMobile: customerDetails.mobile,
         customerAddress: customerDetails.address,
-        customerGstin: customerDetails.gstin,
+        customerGstin: customerDetails.gstin || "N/A",
         termsConditions: customerDetails.termsConditions  || "N/A", // Send Terms & Conditions in the request
         products: products.map((product) => ({
           name: product.name,
@@ -119,7 +106,7 @@ const generateQuotation = () => {
           <Card style={styles.card}>
             <Card.Title title="New Customer Details" />
             <Card.Content>
-              {['name', 'mobile', 'address', 'gstin'].map((field, index) => (
+              {['name', 'mobile', 'address'].map((field, index) => (
                 <TextInput
                   key={index}
                   label={`Customer ${field.charAt(0).toUpperCase() + field.slice(1)}`}
@@ -128,7 +115,7 @@ const generateQuotation = () => {
                   style={styles.input}
                   mode="outlined"
                   keyboardType={field==='mobile' ? 'numeric' : 'none' }
-                  autoCapitalize={field === 'gstin' ? 'characters' : 'none'} // Auto capitalize only for gstin
+                  // autoCapitalize={field === 'gstin' ? 'characters' : 'none'} // Auto capitalize only for gstin
                 />
               ))}
               
@@ -184,7 +171,7 @@ const generateQuotation = () => {
               <Card style={styles.card}>
                 <Card.Title title="Customer Details" />
                 <Card.Content>
-                {['name', 'mobile', 'address', 'gstin', 'termsConditions'].map((field, index) => (
+                {['name', 'mobile', 'address', 'termsConditions'].map((field, index) => (
                   <TextInput
                     key={index}
                     label={`Customer ${field.charAt(0).toUpperCase() + field.slice(1)}`}

@@ -41,7 +41,17 @@ const BillingTypeCard = () => {
                 <View style={styles.card}>
                     <View style={styles.header}>
                         <Text style={styles.subtitle}>
-                            Om Sai Quotations
+                            Enterprise Quotations
+                        </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('Generatorquotation')}>
+                <View style={styles.card}>
+                    <View style={styles.header}>
+                        <Text style={styles.subtitle}>
+                            Generator Quotations
                         </Text>
                     </View>
                 </View>

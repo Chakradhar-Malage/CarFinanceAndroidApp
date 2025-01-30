@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CarFinance",
-    "slug": "CarFinance",
+    "name": "OmSai",
+    "slug": "OmSai",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.Chakradhar.CarFinance"
+      "bundleIdentifier": "com.Chakradhar.OmSai"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +18,7 @@
         "backgroundColor": "#ffffff"
       },
       "icon": "./assets/images/icon.png",
-      "package": "com.Chakradhar.CarFinance"
+      "package": "com.Chakradhar.OmSai"
     },
     "web": {
       "bundler": "metro",
@@ -58,7 +58,8 @@
       "eas": {
         "projectId": "d1b748b8-cc0a-4a5d-a972-026ac6672e0f"
       }
-    }
+    },
+    "owner": "testfychaku"
   },
   "build": {
     "preview": {

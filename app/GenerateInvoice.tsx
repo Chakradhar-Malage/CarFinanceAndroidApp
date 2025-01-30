@@ -4,7 +4,6 @@ import { TextInput, Button, Card, IconButton } from 'react-native-paper';
 import axios from 'axios';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-
 const GenerateInvoice = () => {
   const [isNewCustomer, setIsNewCustomer] = useState(true);
   const [customerDetails, setCustomerDetails] = useState({
@@ -17,20 +16,17 @@ const GenerateInvoice = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  
 
   useEffect(() => {
     axios
       .get('http://15.207.48.53:3000/customers')
       .then(response => {
-        // console.log('Fetched customers:', response.data);
         setCustomersList(response.data);
       })
       .catch(error => console.error('Error fetching customers:', error));
   }, []);
 
   const handleCustomerChange = (key, value) => {
-    console.log(`Customer ${key} changed to:`, value);
     setCustomerDetails({ ...customerDetails, [key]: value });
   };
 
@@ -40,7 +36,6 @@ const GenerateInvoice = () => {
       customer.mobile.includes(searchQuery)
     );
     if (matchedCustomer) {
-      console.log('Matched customer:', matchedCustomer);
       setSelectedCustomer(matchedCustomer);
       setCustomerDetails(matchedCustomer);
     } else {
@@ -49,12 +44,10 @@ const GenerateInvoice = () => {
   };
 
   const addProduct = () => {
-    console.log('Adding a new product');
-    setProducts([...products, { name: '', quantity: '', rate: '' }]);
+    setProducts([...products, { name: '', quantity: '', rate: '', gst: '18', hsn: '998717' }]);
   };
 
   const deleteProduct = (index) => {
-    console.log('Deleting product at index:', index);
     const updatedProducts = [...products];
     updatedProducts.splice(index, 1);
     setProducts(updatedProducts);
@@ -62,17 +55,19 @@ const GenerateInvoice = () => {
 
   const generateInvoice = async () => {
     try {
-      console.log('Generating invoice with data:', {
-        customer_name: customerDetails.name,
-        customer_mobile: customerDetails.mobile,
-        customer_address: customerDetails.address,
-        customer_gstin: customerDetails.gstin,
-        products: products.map((product) => ({
-          name: product.name,
-          quantity: parseFloat(product.quantity),
-          rate: parseFloat(product.rate),
-        })),
-      });
+      // console.log('Generating invoice with data:', {
+      //   customer_name: customerDetails.name,
+      //   customer_mobile: customerDetails.mobile,
+      //   customer_address: customerDetails.address,
+      //   customer_gstin: customerDetails.gstin,
+      //   products: products.map((product) => ({
+      //     name: product.name,
+      //     quantity: parseFloat(product.quantity),
+      //     rate: parseFloat(product.rate),
+      //     gst: parseFloat(product.gst),
+      //     hsn: product.hsn,
+      //   })),
+      // });
 
       const response = await axios.post('http://15.207.48.53:3000/generate-bill', {
         customerName: customerDetails.name,
@@ -83,10 +78,10 @@ const GenerateInvoice = () => {
           name: product.name,
           quantity: parseFloat(product.quantity),
           rate: parseFloat(product.rate),
+          gst: parseFloat(product.gst),
+          hsn: product.hsn,
         })),
       });
-
-      console.log('Invoice generation response:', response.data);
 
       if (response.status === 200) {
         Alert.alert('Success', 'Invoice generated successfully!');
@@ -99,134 +94,159 @@ const GenerateInvoice = () => {
 
   return (
     <SafeAreaView>
-    <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <SafeAreaView>
-        <View style={styles.buttonSection}>
+          <View style={styles.buttonSection}>
             <Button mode="contained" onPress={() => setIsNewCustomer(true)} style={styles.button}>
               New Customer
             </Button>
             <Button mode="contained" onPress={() => setIsNewCustomer(false)} style={styles.button}>
               Existing Customer
             </Button>
-        </View>
-      </SafeAreaView>
+          </View>
+        </SafeAreaView>
 
-      {isNewCustomer ? (
-        <Card style={styles.card}>
-          <Card.Title title="New Customer Details" />
-          <Card.Content>
-            {['name', 'mobile', 'address', 'gstin'].map((field, index) => (
-              <TextInput
-                key={index}
-                label={`Customer ${field.charAt(0).toUpperCase() + field.slice(1)}`}
-                value={customerDetails[field]}
-                onChangeText={(text) => handleCustomerChange(field, text)}
-                style={styles.input}
-                mode="outlined"
-              />
-            ))}
-          </Card.Content>
-        </Card>
-      ) : (
-        <>
+        {isNewCustomer ? (
           <Card style={styles.card}>
-            <Card.Title title="Search Existing Customer" />
+            <Card.Title title="New Customer Details" />
             <Card.Content>
-              <TextInput
-                label="Search Customer"
-                placeholder="Search by name or mobile"
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-                style={styles.input}
-                mode="outlined"
-              />
-              <Button mode="outlined" onPress={handleExistingCustomerSearch} style={styles.searchButton}>
-                Search
-              </Button>
+              {['name', 'mobile', 'address', 'gstin'].map((field, index) => (
+                <TextInput
+                  key={index}
+                  label={`Customer ${field.charAt(0).toUpperCase() + field.slice(1)}`}
+                  value={customerDetails[field]}
+                  onChangeText={(text) => handleCustomerChange(field, text)}
+                  style={styles.input}
+                  mode="outlined"
+                  keyboardType={field === 'mobile' ? 'numeric' : 'none'}
+                  autoCapitalize={field === 'gstin' ? 'characters' : 'none'}
+                />
+              ))}
             </Card.Content>
           </Card>
-
-          {selectedCustomer && (
+        ) : (
+          <>
             <Card style={styles.card}>
-              <Card.Title title="Customer Details" />
+              <Card.Title title="Search Existing Customer" />
               <Card.Content>
-                {['name', 'mobile', 'address', 'gstin'].map((field, index) => (
+                <TextInput
+                  label="Search Customer"
+                  placeholder="Search by name or mobile"
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  style={styles.input}
+                  mode="outlined"
+                />
+                <Button mode="outlined" onPress={handleExistingCustomerSearch} style={styles.searchButton}>
+                  Search
+                </Button>
+              </Card.Content>
+            </Card>
+
+            {selectedCustomer && (
+              <Card style={styles.card}>
+                <Card.Title title="Customer Details" />
+                <Card.Content>
+                  {['name', 'mobile', 'address', 'gstin'].map((field, index) => (
+                    <TextInput
+                      key={index}
+                      label={`Customer ${field.charAt(0).toUpperCase() + field.slice(1)}`}
+                      value={customerDetails[field]}
+                      onChangeText={(text) => handleCustomerChange(field, text)}
+                      style={styles.input}
+                      mode="outlined"
+                    />
+                  ))}
+                </Card.Content>
+              </Card>
+            )}
+          </>
+        )}
+
+        <Card style={styles.card}>
+          <Card.Title title="Products" />
+          <Card.Content>
+            {products.map((product, index) => (
+              <Card key={index} style={styles.productCard}>
+                <Card.Title title={`Product ${index + 1}`} />
+                <Card.Content>
                   <TextInput
-                    key={index}
-                    label={`Customer ${field.charAt(0).toUpperCase() + field.slice(1)}`}
-                    value={customerDetails[field]}
-                    onChangeText={(text) => handleCustomerChange(field, text)}
+                    label="Product Name"
+                    value={product.name}
+                    onChangeText={(text) => {
+                      const updatedProducts = [...products];
+                      updatedProducts[index].name = text;
+                      setProducts(updatedProducts);
+                    }}
                     style={styles.input}
                     mode="outlined"
                   />
-                ))}
-              </Card.Content>
-            </Card>
-          )}
-        </>
-      )}
+                  <TextInput
+                    label="Quantity"
+                    value={product.quantity}
+                    onChangeText={(text) => {
+                      const updatedProducts = [...products];
+                      updatedProducts[index].quantity = text;
+                      setProducts(updatedProducts);
+                    }}
+                    style={styles.input}
+                    mode="outlined"
+                    keyboardType="numeric"
+                  />
+                  <TextInput
+                    label="Rate"
+                    value={product.rate}
+                    onChangeText={(text) => {
+                      const updatedProducts = [...products];
+                      updatedProducts[index].rate = text;
+                      setProducts(updatedProducts);
+                    }}
+                    style={styles.input}
+                    mode="outlined"
+                    keyboardType="numeric"
+                  />
+                  <TextInput
+                    label="GST (%)"
+                    value={product.gst}
+                    onChangeText={(text) => {
+                      const updatedProducts = [...products];
+                      updatedProducts[index].gst = text;
+                      setProducts(updatedProducts);
+                    }}
+                    style={styles.input}
+                    mode="outlined"
+                    keyboardType="numeric"
+                  />
+                  <TextInput
+                    label="HSN Code"
+                    value={product.hsn}
+                    onChangeText={(text) => {
+                      const updatedProducts = [...products];
+                      updatedProducts[index].hsn = text;
+                      setProducts(updatedProducts);
+                    }}
+                    style={styles.input}
+                    mode="outlined"
+                    keyboardType="numeric"
+                  />
+                </Card.Content>
+                <Card.Actions style={styles.productActions}>
+                  <Button mode="outlined" onPress={() => deleteProduct(index)} color="red">
+                    Delete
+                  </Button>
+                </Card.Actions>
+              </Card>
+            ))}
+            <Button mode="outlined" onPress={addProduct} style={styles.addProductButton}>
+              Add Product
+            </Button>
+          </Card.Content>
+        </Card>
 
-    <Card style={styles.card}>
-      <Card.Title title="Products" />
-      <Card.Content>
-        {products.map((product, index) => (
-          <Card key={index} style={styles.productCard}>
-            <Card.Title title={`Product ${index + 1}`} />
-            <Card.Content>
-              <TextInput
-                label="Product Name"
-                value={product.name}
-                onChangeText={(text) => {
-                  const updatedProducts = [...products];
-                  updatedProducts[index].name = text;
-                  setProducts(updatedProducts);
-                }}
-                style={styles.input}
-                mode="outlined"
-              />
-              <TextInput
-                label="Quantity"
-                value={product.quantity}
-                onChangeText={(text) => {
-                  const updatedProducts = [...products];
-                  updatedProducts[index].quantity = text;
-                  setProducts(updatedProducts);
-                }}
-                style={styles.input}
-                mode="outlined"
-                keyboardType="numeric"
-              />
-              <TextInput
-                label="Rate"
-                value={product.rate}
-                onChangeText={(text) => {
-                  const updatedProducts = [...products];
-                  updatedProducts[index].rate = text;
-                  setProducts(updatedProducts);
-                }}
-                style={styles.input}
-                mode="outlined"
-                keyboardType="numeric"
-              />
-            </Card.Content>
-            <Card.Actions style={styles.productActions}>
-              <Button mode="outlined" onPress={() => deleteProduct(index)} color="red">
-                Delete
-              </Button>
-            </Card.Actions>
-          </Card>
-        ))}
-        <Button mode="outlined" onPress={addProduct} style={styles.addProductButton}>
-          Add Product
+        <Button mode="contained" onPress={generateInvoice} style={styles.generateButton}>
+          Generate Invoice
         </Button>
-      </Card.Content>
-    </Card>
-
-
-      <Button mode="contained" onPress={generateInvoice} style={styles.generateButton}>
-        Generate Invoice
-      </Button>
-    </ScrollView>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -241,8 +261,6 @@ const styles = StyleSheet.create({
   productContainer: { flexDirection: 'row', alignItems: 'center', marginBottom: 15 },
   deleteButton: { marginLeft: 10 },
   generateButton: { marginTop: 20, backgroundColor: '#841584' },
-
 });
 
 export default GenerateInvoice;
-
