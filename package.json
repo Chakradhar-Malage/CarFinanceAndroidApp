@@ -16,10 +16,10 @@
   "type": "commonjs",
   "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --dev-client",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint"
@@ -48,7 +48,7 @@
     "expo-secure-store": "~14.0.1",
     "expo-sharing": "~13.0.0",
     "expo-splash-screen": "~0.29.21",
-    "expo-sqlite": "~15.0.5",
+    "expo-sqlite": "~15.1.0",
     "expo-status-bar": "^2.0.0",
     "expo-symbols": "^0.2.0",
     "expo-system-ui": "^4.0.6",
@@ -64,8 +64,6 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "^13.0.1",
     "react-native-paper": "^5.13.1",
-    "react-native-pdf": "^6.7.6",
-    "react-native-pdf-lib": "^1.0.0",
     "react-native-picker-select": "^9.3.1",
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.4.0",
@@ -82,7 +80,8 @@
     "@types/react-native-sqlite-storage": "^6.0.5",
     "jest": "^29.2.1",
     "jest-expo": "~52.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "@babel/core": "^7.20.0"
   },
   "jest": {
     "preset": "jest-expo"
@@ -95,7 +94,9 @@
           "react-native-keyboard-aware-scroll-view",
           "react-native-sqlite-storage",
           "moment",
-          "react-datepicker"
+          "react-datepicker",
+          "react-native-modal",
+          "react-native-pdf-lib"
         ],
         "listUnknownPackages": false
       }

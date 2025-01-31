@@ -32,7 +32,7 @@ const ExportData = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(`http://192.168.1.205:3000/export-month?month=${month}`);
+            const response = await fetch(`http://15.207.48.53:3000/export-month?month=${month}`);
             const result = await response.json();
 
             if (response.ok) {

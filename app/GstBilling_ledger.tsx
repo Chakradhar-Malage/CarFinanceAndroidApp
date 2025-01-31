@@ -195,7 +195,7 @@ const GSTBillingLedger = () => {
                 'Export Options',
                 'Choose an export format',
                 [
-                  { text: 'Export to Excel', onPress: () => exportToExcel(ledgerData) },
+                  // { text: 'Export to Excel', onPress: () => exportToExcel(ledgerData) },
                   { text: 'Export to PDF', onPress: () => exportToPDF(ledgerData) },
                   { text: 'Cancel', style: 'cancel' },
                 ]
