@@ -59,7 +59,13 @@
         "projectId": "d1b748b8-cc0a-4a5d-a972-026ac6672e0f"
       }
     },
-    "owner": "testfychaku"
+    "owner": "testfychaku",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d1b748b8-cc0a-4a5d-a972-026ac6672e0f"
+    }
   },
   "build": {
     "preview": {

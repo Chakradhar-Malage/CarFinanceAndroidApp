@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; // Import the KeyboardAwareScrollView
+import moment from 'moment';
 
 
 const ViewCarDetails = () => {
@@ -98,8 +99,48 @@ const ViewCarDetails = () => {
         }
     };
 
-    const clearAndSaveDetails = async () => {
+    // const clearAndSaveDetails = async () => {
        
+    //     try {
+    //         // Calculate the total expenses
+    //         const totalExpenses =
+    //             (fuel_expense ? parseInt(fuel_expense) : 0) +
+    //             (driver_expense ? parseInt(driver_expense) : 0) +
+    //             (maintenance ? parseInt(maintenance) : 0);
+    
+    //         // Prepare the data to save
+    //         const dataToSave = {
+    //             vehicle_number: vehicleId,
+    //             agreed_amount: parseInt(agreed_amount) || 0,
+    //             issued_to: issued_to || 'N/A',
+    //             total_expenses: totalExpenses,
+    //             };
+    
+    //         // API call to save data to the database
+    //         const response = await axios.post('http://15.207.48.53:3000/saveClearedDetails', dataToSave);
+    
+    //         if (response.status === 200) {
+    //             Alert.alert('Success', 'Details saved successfully.');
+    
+    //             // Reset the fields
+    //             setIssuedTo('N/A');
+    //             setAgreedAmount(0);
+    //             setReceivedAmount(0);
+    //             setFuelExpense(0);
+    //             setMaintenance(0);
+    //             setDriverExpense(0);
+    //         } else {
+    //             Alert.alert('Error', 'Failed to save details.');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error saving cleared details:', error.response?.data || error.message);
+    //         Alert.alert('Error', 'Vehicle is already cleared.');
+    //     }
+    // };
+    
+    const formattedDate = moment(date, "DD/MM/YYYY").format("YYYY-MM-DD");
+
+    const clearAndSaveDetails = async () => {
         try {
             // Calculate the total expenses
             const totalExpenses =
@@ -107,13 +148,14 @@ const ViewCarDetails = () => {
                 (driver_expense ? parseInt(driver_expense) : 0) +
                 (maintenance ? parseInt(maintenance) : 0);
     
-            // Prepare the data to save
+            // Prepare the data to save, including the date from the input
             const dataToSave = {
                 vehicle_number: vehicleId,
                 agreed_amount: parseInt(agreed_amount) || 0,
                 issued_to: issued_to || 'N/A',
                 total_expenses: totalExpenses,
-                };
+                cleared_date: formattedDate,  // NEW: send the user-provided date
+            };
     
             // API call to save data to the database
             const response = await axios.post('http://15.207.48.53:3000/saveClearedDetails', dataToSave);
@@ -136,7 +178,6 @@ const ViewCarDetails = () => {
             Alert.alert('Error', 'Vehicle is already cleared.');
         }
     };
-    
     
 
     if (loading) {
@@ -169,35 +210,6 @@ const ViewCarDetails = () => {
         );
     };
 
-    // const handlePendingAmount = async () => {
-    //     const pendingAmount = calculatePendingAmount();
-
-    //     if (pendingAmount > 0) {
-    //         try {
-    //             // Make the second API call with pending amount
-    //             const response = await axios.post('a://192.168.1.203:3000/processPendingAmount', {
-    //                 vehicleId: vehicleId,
-    //                 pending_amount: pendingAmount,
-    //                 customer_name: issued_to
-    //             });
-
-    //             if (response.status === 200) {
-    //                 Alert.alert('Success', 'Pending amount processed successfully.');
-    //                 setIssuedTo('N/A');
-    //                 setAgreedAmount(0);
-    //                 setReceivedAmount(0);
-    //                 setFuelExpense(0);
-    //                 setMaintenance(0);
-    //                 setDriverExpense(0);
-    //             } else {
-    //                 Alert.alert('Error', 'Failed to process pending amount.');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error processing pending amount:', error.response?.data || error.message);
-    //             Alert.alert('Error', 'An error occurred while processing pending amount.');
-    //         }
-    //     }
-    // };
 
     const handlePendingAmount = async () => {
         const pendingAmount = calculatePendingAmount();
@@ -433,23 +445,6 @@ const ViewCarDetails = () => {
                         />
                     </View>
     
-                    {/* <View style={{ marginLeft: 215, marginTop: -45, width: '40%' }}>
-                        <Button
-                            onPress={() => {
-                                Alert.alert(
-                                    'Clear Data',
-                                    'Do you want to clear and save the details?',
-                                    [
-                                        { text: 'Cancel', style: 'cancel' },
-                                        { text: 'OK', onPress: clearAndSaveDetails },
-                                    ]
-                                );
-                            }}
-                            title="Clear"
-                            color="#841584"
-                            accessibilityLabel="Clear Car Details"
-                        />
-                    </View> */}
 
                     <View style={{ marginLeft: 215, marginTop: -45, width: '40%' }}>
                         <Button
@@ -467,10 +462,7 @@ const ViewCarDetails = () => {
     
 };
 
-
 export default ViewCarDetails
-
-
 
 const styles = StyleSheet.create( {
     username: {
