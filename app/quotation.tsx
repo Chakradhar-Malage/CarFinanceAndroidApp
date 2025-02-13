@@ -82,35 +82,13 @@ const ViewInvoices = () => {
     const openInBrowser = (customerName, createdAt) => {
         const formattedDate = formatDateForUrl(createdAt);  // Format the date to match the required format
         const encodedCreatedAt = encodeURIComponent(formattedDate);  // Encode the formatted date
-        const url = `http://15.207.48.53:3000/quotations/${customerName}/${encodedCreatedAt}/download`;
+        const encodedCustomerName = encodeURIComponent(customerName); // **Encode the customer name**
+        const url = `http://15.207.48.53:3000/quotations/${encodedCustomerName}/${encodedCreatedAt}/download`;
     
         console.log("Download URL:", url);
-        // Open the URL in the browser
         Linking.openURL(url).catch((err) => console.error('Failed to open URL', err));
     };
     
-
-    // const downloadInvoice = async (customerName, createdAt) => {
-    //     try {
-    //         const encodedCreatedAt = encodeURIComponent(createdAt);
-    //         const url = `http://15.207.48.53:3000/invoices/${customerName}/${encodedCreatedAt}/download`;
-
-    //         const fileUri = FileSystem.documentDirectory + 'invoice.pdf';
-            
-    //         // Download the file
-    //         const downloadResult = await FileSystem.downloadAsync(url, fileUri);
-
-    //         // Notify user of successful download
-    //         Alert.alert('Download completed', `Invoice saved to: ${downloadResult.uri}`);
-    //     } catch (error) {
-    //         console.error('Error downloading invoice:', error);
-    //         Alert.alert('Error', 'Failed to download the invoice.');
-    //     }
-    // };
-
-    // const handleDownload = (item) => {
-    //     downloadInvoice(item.customer_name, item.created_at);
-    // };
 
     const renderInvoice = ({ item }) => (
         <View style={styles.invoiceItem}>

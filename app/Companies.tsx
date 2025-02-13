@@ -9,6 +9,21 @@ const CompanyCard = () => {
 	return (
 		<View style={styles.container}>
 		{/* Card */}
+
+		<TouchableOpacity onPress={() => navigation.navigate('personalBankAccountTracking')}>
+                <View style={styles.personalAccountcard}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>
+                            Personal Account Monitoring
+                        </Text>
+                        {/* <Text style={styles.subtitle}>
+                            Om Sai Enterprises
+                        </Text> */}
+                    </View>
+                    
+                </View>
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={() => navigation.navigate('HomeUIafterSignin')}>
                 <View style={styles.card}>
                     <View style={styles.header}>
@@ -66,6 +81,26 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
         marginBottom: 20
 	},
+
+	personalAccountcard: {
+		backgroundColor: 'white',
+		borderRadius: 15,
+		padding: 1,
+		shadowColor: 'black',
+		shadowOffset: {
+			width: 0,
+			height: 4,
+		},
+		shadowOpacity: 0.3,
+		shadowRadius: 6,
+		elevation: 14,
+		width: 350,
+		height: 80,
+		justifyContent: 'center',
+		alignItems: 'center',
+        marginBottom: 20
+	},
+
 	header: {
 		marginBottom: 16,
 		alignItems: 'center',

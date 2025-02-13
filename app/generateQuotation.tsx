@@ -33,19 +33,6 @@ const generateQuotation = () => {
     setCustomerDetails({ ...customerDetails, [key]: value });
   };
 
-  // const handleExistingCustomerSearch = () => {
-  //   const matchedCustomer = customersList.find(customer =>
-  //     customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     customer.mobile.includes(searchQuery)
-  //   );
-  //   if (matchedCustomer) {
-  //     setSelectedCustomer(matchedCustomer);
-  //     setCustomerDetails(matchedCustomer);
-  //   } else {
-  //     Alert.alert('Not Found', 'No customer matches your search.');
-  //   }
-  // };
-
   const handleExistingCustomerSearch = () => {
     const matchedCustomer = customersList.find(customer =>
       customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -163,23 +150,6 @@ const generateQuotation = () => {
               </Card.Content>
             </Card>
 
-            {/* {selectedCustomer && (
-              <Card style={styles.card}>
-                <Card.Title title="Customer Details" />
-                <Card.Content>
-                  {['name', 'mobile', 'address', 'gstin'].map((field, index) => (
-                    <TextInput
-                      key={index}
-                      label={`Customer ${field.charAt(0).toUpperCase() + field.slice(1)}`}
-                      value={customerDetails[field]}
-                      onChangeText={(text) => handleCustomerChange(field, text)}
-                      style={styles.input}
-                      mode="outlined"
-                    />
-                  ))}
-                </Card.Content>
-              </Card>
-            )} */}
             {selectedCustomer && (
               <Card style={styles.card}>
                 <Card.Title title="Customer Details" />
